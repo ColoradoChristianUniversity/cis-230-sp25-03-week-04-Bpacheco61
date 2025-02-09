@@ -12,6 +12,9 @@ while (true)
 {
     int ItemSelection = 1;
     string[] items = await Api.GetStringArrayAsync();
+    Console.Clear();
+    Console.WriteLine("Loading...");
+    await Task.Delay(1000);
     while (true) {
         int ItemNumber = 1;
         Console.Clear();
@@ -32,9 +35,9 @@ while (true)
         ConsoleKey KeyPress = Console.ReadKey().Key;
         if (KeyPress == ConsoleKey.UpArrow)
         {
-            if (ItemSelection < 1)
+            if (ItemSelection < 2)
             {
-                ItemSelection = items.Length + 1;
+                ItemSelection = items.Length;
             }
             else
             {
@@ -43,7 +46,7 @@ while (true)
         }
         else if (KeyPress == ConsoleKey.DownArrow)
         {
-            if (ItemSelection > items.Length)
+            if (ItemSelection > items.Length - 1)
             {
                 ItemSelection = 1;
             }
@@ -54,9 +57,20 @@ while (true)
         }
         else if (KeyPress == ConsoleKey.Enter)
         {
+            string SelectString = "You selected:";
+
             Console.Clear();
-            Console.WriteLine($"You have selected {items[ItemSelection - 1]}");
+            Screen.SurroundWithBorder(new System.Drawing.Point(0, 0), new System.Drawing.Size(items[ItemSelection - 1].Length + SelectString.Length + 1, 1), Screen.BorderStyle.@single);
+            Console.SetCursorPosition(1, 1);
+            Screen.Print1($"{SelectString} {items[ItemSelection - 1]}", foreground: ConsoleColor.Black, background: ConsoleColor.White);
+            Console.SetCursorPosition(0, Console.WindowHeight - 2);
+            Screen.Print1("Press any key to continue...", foreground: ConsoleColor.Yellow, background: ConsoleColor.Blue);
             Console.ReadKey();
+            break;
+        }
+        else if (KeyPress == ConsoleKey.Escape)
+        {
+            Console.Clear();
             break;
         }
     }
