@@ -11,7 +11,7 @@ public static class Screen
         CursorVisible = false;
     }
 
-    public static void Print(string text, Point? topLeft = null, ConsoleColor? foreground = null, ConsoleColor? background = null)
+    public static void Print1(string text, Point? topLeft = null, ConsoleColor? foreground = null, ConsoleColor? background = null)
     {
         Print(text, topLeft?.X, topLeft?.Y, foreground, background);
     }
@@ -29,7 +29,7 @@ public static class Screen
         ForegroundColor = foreground ?? ForegroundColor;
         BackgroundColor = background ?? BackgroundColor;
 
-        Write(text);
+        WriteLine(text);
         ResetColor();
     }
 
